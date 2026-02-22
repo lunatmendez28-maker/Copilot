@@ -236,26 +236,34 @@ def determine_winner(player_choice, computer_choice):
         return "You win!"
     else:
         return "Computer wins!" 
+def reset_cli_scores():
+    """Reset scores in CLI mode"""
+    return 0, 0
+
 def main():
     player_score = 0
     computer_score = 0
-    print("Welcome to Rock Paper Scissors! Type 'quit' to exit.")
+    print("Welcome to Rock Paper Scissors! Type 'quit' to exit or 'reset' to reset scores.")
+    print("Current Score - You: 0, Computer: 0\n")
     while True:
-        player_choice = input("Enter your choice (r/rock, p/paper, s/scissors): ").lower().strip()
+        player_choice = input("Enter your choice (r/rock, p/paper, s/scissors, reset, quit): ").lower().strip()
         # Map shortcuts and common variants to full names
         choice_map = {'r': 'rock', 'p': 'paper', 's': 'scissors', 'scissor': 'scissors'}
         player_choice = choice_map.get(player_choice, player_choice)
-# ...existing code...
-# filepath: c:\Users\lunat\Pictures\CODE\Nueva\COPILOT\piedra_papel_tijera.py
-        # Map shortcuts to full names
-        choice_map = {'r': 'rock', 'p': 'paper', 's': 'scissors'}
-        player_choice = choice_map.get(player_choice, player_choice)
+        
         if player_choice == 'quit':
             print("Thanks for playing! Final score - You: {}, Computer: {}".format(player_score, computer_score))
             break
+        
+        if player_choice == 'reset':
+            player_score, computer_score = reset_cli_scores()
+            print("🔄 Scores reset! Current Score - You: {}, Computer: {}\n".format(player_score, computer_score))
+            continue
+        
         if player_choice not in ['rock', 'paper', 'scissors']:
             print("Invalid choice. Please try again.")
             continue
+        
         computer_choice = get_computer_choice()
         print("Computer chose: {}".format(computer_choice))
         player_emoji = get_emoji(player_choice)
@@ -267,5 +275,7 @@ def main():
             player_score += 1
         elif result == "Computer wins!":
             computer_score += 1
+        
+        print("Current Score - You: {}, Computer: {}\n".format(player_score, computer_score))
 if __name__ == "__main__":
     main()
